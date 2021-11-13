@@ -17,18 +17,19 @@ const port = process.env.PORT || 4000;
 
 //Initiate connection with database
 db.connect({
-    host: process.env.DB_HOST,
-    username: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database: process.env.DB_NAME
-}).then(() => {
+    host: 'localhost',
+    database: 'test'
+})
+.then(() => {
     //Handle /api with the api middleware
     app.use('/api', session({
         genid() {
-            return genuuid() // use UUIDs for session IDs
+            const a = genuuid();
+            console.log(a);
+            return a; // use UUIDs for session IDs
         },
         store: new MongoStore({ client: db.getClient() }),
-        secret: process.env.SESSION_SECRET,
+        secret: 'qwertyuiop',
         resave: false,
         saveUninitialized: true,
     }), api);

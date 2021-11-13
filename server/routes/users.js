@@ -32,7 +32,7 @@ router.post('/', (req, res) => {
         const hash = bcrypt.hashSync(password);
 
         const userCredential = new UserCredential({ email, password: hash });
-
+         
         userCredential.save().then(() => {
             const user = new User({ _id: userCredential.id, email });
             user.save().then(() => {
